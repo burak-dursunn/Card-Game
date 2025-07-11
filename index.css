@@ -1,0 +1,44 @@
+h1,p {
+    text-align: center;
+}
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(200px, 1fr));
+    margin: 0 auto;
+    gap: 1rem;
+}
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    transition: 0.4s ease-in-out;
+    background-color: cyan;
+    font-weight: bold;
+    
+}
+.card:hover {
+    background-color: rgb(201, 201, 0);
+    cursor: pointer;
+}
+
+.card.flipped {
+    background-color: yellow;
+    font-size: 2rem
+}
+.card.flipped.matched {
+    background-color: rgb(69, 225, 69);
+    font-size: 3rem;
+}
+.card.notMatched {   
+    background-color: red;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 1296px) {
+    .card-container {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
