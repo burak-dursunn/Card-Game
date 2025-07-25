@@ -1,28 +1,39 @@
-const kartlar = document.querySelectorAll('.card')
-const kartDegerleri = []
+const cardContainer = document.createElement('div');
+cardContainer.className = 'card-container';
+for(let i=1; i<=12; i++) {
+    const kart = document.createElement('div');
+    kart.className = 'card';
+    kart.textContent = i;
+    cardContainer.appendChild(kart);
+}
+document.body.appendChild(cardContainer);
+
+// const kartlar = document.querySelectorAll('.card'); 
+const kartlar = Array.from(cardContainer.children); // ! Kartları bir diziye çeviriyoruz.
+const kartDegerleri = [];
 kartlar.forEach((kart) => {
     kartDegerleri.push(kart.textContent); 
 })
 
 let tiklama = 0;
-let cevrilmisKart= [];
+let cevrilmisKart = [];
 let tiklamaEngeli = false;
 // todo sayfadaki kurallar göre skor tablosu oluştur.
 shuffledValues =  shuffle(kartDegerleri);
 kartlar.forEach((kart,index) => {
-    kart.setAttribute('data-value', shuffledValues[index]);
+    // ? kart.dateset.value = shuffledValues[index]; // Daha basit bir tanımlama
+    kart.setAttribute('data-value', shuffledValues[index]); 
     kart.textContent = ''; // ! Kartların içeriğini gizledik.
 
-
-    
-    kart.addEventListener('click', () => { // !Karta tıklama olayı
+    kart.addEventListener('click', () => { 
         if(tiklamaEngeli || kart.classList.contains('flipped') || cevrilmisKart.includes(kart)) return;
 
         kart.classList.add('flipped');
-        cevrilmisKart.push(kart);
+        cevrilmisKart.push(kart);    
         kart.textContent = kart.getAttribute('data-value');
         
         if (cevrilmisKart.length === 2) {
+            console.log(cevrilmisKart);
             updateScore();
             tiklamaEngeli = true;
             setTimeout(() => {
@@ -45,6 +56,7 @@ function shuffle(array) {
 
 function EslesmeKontrolu() {
     const [kart1, kart2] = cevrilmisKart;
+    //? const val1 = kart1.dataset.value; // dataset ile data-value değerini alıyoruz.
     const val1 = kart1.getAttribute('data-value');
     const val2 = kart2.getAttribute('data-value');
 
